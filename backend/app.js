@@ -9,6 +9,7 @@ const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
 
 require('./models/User');
+require('./models/Tweet');
 require('./config/passport'); 
 const passport = require('passport'); 
 
@@ -35,15 +36,15 @@ if (!isProduction) {
 
 // Set the _csrf token and create req.csrfToken method to generate a hashed
 // CSRF token
-// app.use(
-//     csurf({
-//         cookie: {
-//             secure: isProduction,
-//             sameSite: isProduction && "Lax",
-//             httpOnly: true
-//         }
-//     })
-// );
+app.use(
+    csurf({
+        cookie: {
+            secure: isProduction,
+            sameSite: isProduction && "Lax",
+            httpOnly: true
+        }
+    })
+);
 
 // Attach Express routers
 app.use('/api/users', usersRouter);
